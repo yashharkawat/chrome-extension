@@ -1,0 +1,11 @@
+{
+    "name":"dev tools",
+    "version":"1.0",
+    "manifest_version":3,
+    "description":"dev tools basics",
+    "background":{
+        "service_worker":"background.js"
+    },
+    "permissions":["activeTab","storage","scripting"],
+    "devtools_page":"devtools.html"
+}
