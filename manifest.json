@@ -3,10 +3,14 @@
     "version":"1.0",
     "manifest_version":3,
     "description":"dev tools basics",
-    "background":{
-        "service_worker":"background.js"
-    },
     "permissions":["activeTab","tabs","storage","scripting"],
-    "devtools_page":"devtools.html"
+    "devtools_page":"devtools.html",
+    "host_permissions":["http://localhost:3000/"],
+    "content_scripts":[
+        {
+        "matches":["<all_urls>"],
+        "js":["content.js"]
+    }   
+    ]
 }
 
