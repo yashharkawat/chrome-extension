@@ -5,7 +5,12 @@
     "description":"dev tools basics",
     "permissions":["activeTab","tabs","storage","scripting"],
     "devtools_page":"devtools.html",
-    "host_permissions":["http://localhost:3000/"],
+    "background":{
+        "service_worker":"background.js"
+    },
+    "action":{
+        "default_popup":"popup.html"
+    },
     "content_scripts":[
         {
         "matches":["<all_urls>"],

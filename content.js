@@ -49,22 +49,22 @@ const matchLabelsWithString=(text,string)=>{
     return regEx.test(text);
 }
 
-const dfs = (node,DocumentNodes) => {
+const dfs = (node,documentNodes) => {
   if(node===null) return;
   if(node.nodeName==='STYLE') return;
 
-  if(node.nodeType===Node.TEXT_NODE) DocumentNodes.push(node);
+  if(node.nodeType===Node.TEXT_NODE) documentNodes.push(node);
   node.childNodes.forEach((item) => {
-      dfs(item,DocumentNodes);
+      dfs(item,documentNodes);
   });
-  return DocumentNodes;
+  return documentNodes;
 };
 
-const HighlightNodes=(object,DocumentNodes)=>{
+const HighlightNodes=(object,documentNodes)=>{
     const name=Object.keys(object)[0];
     const i18nStrings=object[name];
     i18nStrings.forEach((string)=>{
-        DocumentNodes.forEach((item)=>{
+        documentNodes.forEach((item)=>{
             const text=item.textContent;
             if(matchLabelsWithString(text,string))
             {
@@ -84,6 +84,7 @@ const HighlightNodes=(object,DocumentNodes)=>{
     
 }
 chrome.runtime.onMessage.addListener((message) => {
-    const DocumentNodes=dfs(document.body,[]);
-    HighlightNodes(message,DocumentNodes);
+    const documentNodes=dfs(document.body,[]);
+    HighlightNodes(message,documentNodes);
+    //console.log(message);
 })
