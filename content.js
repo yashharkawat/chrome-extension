@@ -32,17 +32,19 @@ const getTargetStringRegex=(string)=>{
     }
     let RegexString="";
     k=0;
-
+    if(newString[0]!=='{') RegexString+='^';
     indexArray.forEach((item)=>{
         RegexString+=newString.slice(k,item[0]);
         RegexString+="\\w*";
         k=item[1]+1;
     })
     RegexString+=newString.slice(k,newString.length);
+    if(k!==newString.length) RegexString+='$';
     return RegexString;
 }
 
 const matchLabelsWithString=(text,string)=>{
+    if(text===string) return true;
     const regexString=getTargetStringRegex(string);
     let regEx=new RegExp(`${regexString}`);
 
@@ -53,7 +55,7 @@ const dfs = (node,documentNodes) => {
   if(node===null) return;
   if(node.nodeName==='STYLE') return;
 
-  if(node.nodeType===Node.TEXT_NODE) documentNodes.push(node);
+  if(node.nodeType===Node.TEXT_NODE) documentNodes.push(node); 
   node.childNodes.forEach((item) => {
       dfs(item,documentNodes);
   });
@@ -63,8 +65,9 @@ const dfs = (node,documentNodes) => {
 const HighlightNodes=(object,documentNodes)=>{
     const name=Object.keys(object)[0];
     const i18nStrings=object[name];
-    i18nStrings.forEach((string)=>{
-        documentNodes.forEach((item)=>{
+    if(i18nStrings===null) return;
+    documentNodes.forEach((item)=>{
+        i18nStrings.forEach((string)=>{
             const text=item.textContent;
             if(matchLabelsWithString(text,string))
             {
@@ -72,19 +75,21 @@ const HighlightNodes=(object,documentNodes)=>{
                 newElement.classList.add(name);
                 newElement.innerHTML=text;
                 const parent=item.parentNode;
-                parent.replaceChild(newElement,item);
+                if(parent.contains(item)) parent.replaceChild(newElement,item);
             }
+            
         })
+        
     })
     const markedNodes=document.querySelectorAll(`.${name}`);
     const color=getRandomHexValue();
     markedNodes.forEach((item)=>{
-        item.style.backgroundColor=color;
+        item.style.backgroundColor="red !important";
     })
     
 }
 chrome.runtime.onMessage.addListener((message) => {
+
     const documentNodes=dfs(document.body,[]);
-    HighlightNodes(message,documentNodes);
-    //console.log(message);
+    HighlightNodes(message,documentNodes);   
 })
