@@ -10,7 +10,7 @@ const getTargetStringRegex=(string)=>{
     let newString="";
     for(let i=0;i<string.length;i++)
     {
-        if(string[i]==='.'){
+        if(string[i]==='.'||string[i]==='('||string[i]===')'){
             newString+="\\";
         }
         newString+=string[i];
@@ -54,20 +54,20 @@ const matchLabelsWithString=(text,string)=>{
 const dfs = (node,documentNodes) => {
   if(node===null) return;
   if(node.nodeName==='STYLE') return;
-
+  if(node.nodeName==='MARK') return;
   if(node.nodeType===Node.TEXT_NODE) documentNodes.push(node); 
   node.childNodes.forEach((item) => {
       dfs(item,documentNodes);
   });
   return documentNodes;
 };
-
 const HighlightNodes=(object,documentNodes)=>{
     const name=Object.keys(object)[0];
     const i18nStrings=object[name];
     if(i18nStrings===null) return;
-    documentNodes.forEach((item)=>{
-        i18nStrings.forEach((string)=>{
+    
+    i18nStrings.forEach((string)=>{
+        documentNodes.forEach((item)=>{
             const text=item.textContent;
             if(matchLabelsWithString(text,string))
             {
@@ -84,12 +84,16 @@ const HighlightNodes=(object,documentNodes)=>{
     const markedNodes=document.querySelectorAll(`.${name}`);
     const color=getRandomHexValue();
     markedNodes.forEach((item)=>{
-        item.style.backgroundColor="red !important";
+        item.style.backgroundColor=color;
     })
     
 }
 chrome.runtime.onMessage.addListener((message) => {
-
     const documentNodes=dfs(document.body,[]);
     HighlightNodes(message,documentNodes);   
 })
+// chrome.runtime.sendMessage({
+//     from: 'content',
+//     subject: 'showPageAction',
+//     msg:"hi",
+//   });

@@ -3,7 +3,7 @@
     background-color:#0E61F6;
     font-weight: bold;
 }
-.but{
+.highlighted{
     box-shadow: 0 0 0 2px blueviolet,
               0 0 0 4px black;
 }
