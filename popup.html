@@ -5,8 +5,17 @@
 </head>
 <body>
     <h1>Namespace label Highlighter</h1>
+    <form>
+        <label>Select File Type</label><br>
+        <input  type="radio" id="js" name="fileType" value=".js">
+        <label for="js">.js</label><br>
+        <input  type="radio" id="json" name="fileType" value=".json">
+        <label for="json">.json</label><br><br>
+        <label>Add custom regex string</label><br>
+        <input type="text" class="text" id="text" size=40></input>
+        <input type="Submit" value="Submit" id="Submit" >
+    </form><br>
     <button id="buttonElement" class="buttonElement">Highlight</button>
-    
     <script src="popup.js"></script>
 </body>
 </html>

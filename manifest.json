@@ -5,9 +5,6 @@
     "description":"dev tools basics",
     "permissions":["activeTab","tabs","storage","scripting"],
     "devtools_page":"devtools.html",
-    "background":{
-        "service_worker":"background.js"
-    },
     "action":{
         "default_popup":"popup.html"
     },

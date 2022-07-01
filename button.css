@@ -1,7 +1,16 @@
+body{
+    width:max-content;
+    font-size: medium;
+}
 .buttonElement{
+    width:100px;
+    height: 30px;
     border-radius: 5px;
     background-color:#0E61F6;
     font-weight: bold;
+    object-fit: cover;
+    margin:auto;
+    display: block;
 }
 .highlighted{
     box-shadow: 0 0 0 2px blueviolet,

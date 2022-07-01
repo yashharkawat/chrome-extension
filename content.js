@@ -92,8 +92,3 @@ chrome.runtime.onMessage.addListener((message) => {
     const documentNodes=dfs(document.body,[]);
     HighlightNodes(message,documentNodes);   
 })
-// chrome.runtime.sendMessage({
-//     from: 'content',
-//     subject: 'showPageAction',
-//     msg:"hi",
-//   });
