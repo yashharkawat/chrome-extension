@@ -27,4 +27,7 @@ Submit.addEventListener("click",async ()=>{
     const fileType=document.querySelector('input[name="fileType"]:checked').value;
     chrome.storage.local.set({"typeOfFile":fileType});
     chrome.storage.local.set({"regexString":inputText});
+    chrome.tabs.query({active:true,currentWindow:true},([tab])=>{
+        chrome.tabs.reload(tab.id);
+    })
 })

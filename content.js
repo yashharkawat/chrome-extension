@@ -7,40 +7,16 @@ const getRandomHexValue=()=> {
     return color;
 }
 const getTargetStringRegex=(string)=>{
-    let newString="";
-    for(let i=0;i<string.length;i++)
-    {
-        if(string[i]==='.'||string[i]==='('||string[i]===')'){
-            newString+="\\";
-        }
-        newString+=string[i];
-    }
-    let k=-1;
-    let indexArray=[];
-    for(let i=1;i<newString.length-1;i++)
-    {
-        if(newString[i]==='{'&&newString[i-1]==='{') k=i-1;
-        if(newString[i]==='}'&&newString[i+1]==='}')
-        {
-            if(k>=0) 
-            {
-                indexArray.push([k,i+1]);
-                k=-1;        
-            } 
-        }
 
-    }
-    let RegexString="";
-    k=0;
-    if(newString[0]!=='{') RegexString+='^';
-    indexArray.forEach((item)=>{
-        RegexString+=newString.slice(k,item[0]);
-        RegexString+="\\w*";
-        k=item[1]+1;
-    })
-    RegexString+=newString.slice(k,newString.length);
-    if(k!==newString.length) RegexString+='$';
-    return RegexString;
+    let transformedString=string.replace('.',"\\.").replace('(',"\\(").replace(')',"\\)");
+    
+    const regex=/{{([^}]+)}}/g;
+    let regexString="";
+    if(transformedString[0]!=='{') regexString+='^';
+    regexString+=transformedString.replace(regex,"\\w*");
+    if(transformedString[transformedString.length-1]!='}') regexString+='$';
+    
+    return regexString;
 }
 
 const matchLabelsWithString=(text,string)=>{
@@ -51,17 +27,8 @@ const matchLabelsWithString=(text,string)=>{
     return regEx.test(text);
 }
 
-const dfs = (node,documentNodes) => {
-  if(node===null) return;
-  if(node.nodeName==='STYLE') return;
-  if(node.nodeName==='MARK') return;
-  if(node.nodeType===Node.TEXT_NODE) documentNodes.push(node); 
-  node.childNodes.forEach((item) => {
-      dfs(item,documentNodes);
-  });
-  return documentNodes;
-};
-const HighlightNodes=(object,documentNodes)=>{
+
+const highlightNodes=(object,documentNodes)=>{
     const name=Object.keys(object)[0];
     const i18nStrings=object[name];
     if(i18nStrings===null) return;
@@ -88,7 +55,17 @@ const HighlightNodes=(object,documentNodes)=>{
     })
     
 }
+const dfs = (node,documentNodes) => {
+    if(node===null) return;
+    if(node.nodeName==='STYLE') return;
+    if(node.nodeName==='MARK') return;
+    if(node.nodeType===Node.TEXT_NODE) documentNodes.push(node); 
+    node.childNodes.forEach((item) => {
+        dfs(item,documentNodes);
+    });
+    return documentNodes;
+  };
 chrome.runtime.onMessage.addListener((message) => {
     const documentNodes=dfs(document.body,[]);
-    HighlightNodes(message,documentNodes);   
+    highlightNodes(message,documentNodes);   
 })

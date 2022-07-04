@@ -1,8 +1,8 @@
 {
-    "name":"dev tools",
+    "name":"i18n namespace detector",
     "version":"1.0",
     "manifest_version":3,
-    "description":"dev tools basics",
+    "description":"A tool to detect i18n labels",
     "permissions":["activeTab","tabs","storage","scripting"],
     "devtools_page":"devtools.html",
     "action":{

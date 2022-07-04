@@ -11,7 +11,7 @@ chrome.devtools.network.onRequestFinished.addListener(request => {
           chrome.storage.local.get("regexString",(reg)=>{
             const regex=new RegExp(`${reg.regexString}`);
 
-            if(regex.test(name))
+            if(regex.test(name)&&name!=="manifest.json")
             {
               const nameOfFile = urlLink.replace(/[^a-zA-Z0-9 ]/g, ''); //it is required to highlight labels therefore needs to be unique
               const i18nStrings=[];
