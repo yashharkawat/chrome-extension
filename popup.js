@@ -65,33 +65,5 @@ chrome.storage.local.get("typeOfFile",(type)=>{
     }
 })  
 
-// const tooltipEl = document.createElement('div');
-// tooltipEl.id = 'i18n-detector-tooltip';
-// tooltipEl.position = 'absolute';
-// document.body.appendChild(tooltipEl);
 
-// const renderTooltip = (mouseX, mouseY, selection) => {
-//     const tooltipEl = document.getElementById('i18n-detector-tooltip');
-//   tooltipEl.innerHTML = selection;
-//   tooltipEl.style.position = 'absolute';
-//   tooltipEl.style.visibility = 'visible';
-  
-//   tooltipEl.style.top = mouseY + 'px';
-//   tooltipEl.style.left = mouseX + 'px';
-//   tooltipEl.style.backgroundColor = 'white';
-// }
-// const temp1=document.getElementById("buttonElement");
-// temp1.addEventListener('mouseover', event => {
-//    const selection = event.target.innerHTML;
-//    console.log(event.target.getAttribute("id"));
-//     if (selection.length > 0) {
-//     renderTooltip(event.clientX, event.clientY, selection);
-//   }
-// }, false);
-
-// temp1.addEventListener('mouseleave', event => {
-//     const tooltipEl = document.getElementById('i18n-detector-tooltip');
-//     tooltipEl.innerHTML = '';
-//     tooltipEl.style.visibility = 'hidden';
-// }, false)
 

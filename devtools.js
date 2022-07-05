@@ -21,7 +21,7 @@ chrome.devtools.network.onRequestFinished.addListener(request => {
               }
 
               const namespaceFile={};
-              namespaceFile[nameOfFile]=i18nStrings;
+              namespaceFile[name]=i18nStrings;
               chrome.storage.sync.set(namespaceFile);
             } 
           })
@@ -47,7 +47,7 @@ chrome.devtools.network.onRequestFinished.addListener(request => {
 
               })
               const namespaceFile={};
-              namespaceFile[nameOfFile]=i18nStrings;
+              namespaceFile[name]=i18nStrings;
               chrome.storage.sync.set(namespaceFile);
             }
           })
