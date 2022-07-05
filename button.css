@@ -1,18 +1,89 @@
 body{
     width:max-content;
     font-size: medium;
+    -webkit-font-smoothing: antialiased;
+}
+.center{
+    display: flex;
+    flex-direction: column;
 }
 .buttonElement{
-    width:100px;
-    height: 30px;
-    border-radius: 5px;
+    
+    font-family: inherit;
+    opacity: 1;
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-top-width: 1px;
+    outline-width: 0;
+    cursor: pointer;
+    border-radius: 8px;
     background-color:#0E61F6;
-    font-weight: bold;
+    color:#FFFFFF;
     object-fit: cover;
     margin:auto;
     display: block;
+    font-size: 14px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    box-sizing: border-box;
+    padding-right: 16px;
+    padding-left: 16px;
+    font-weight: 600;
 }
-.highlighted{
-    box-shadow: 0 0 0 2px blueviolet,
-              0 0 0 4px black;
+.buttons{
+    display: flex;
+    flex-direction: row;
+}
+
+.refresh{
+    
+    font-family: inherit;
+    outline-width: 0;
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-top-width: 1px;
+    cursor: pointer;
+    opacity: 1;
+    border-radius: 8px;
+    background-color:white;
+    border-left-color: #0E61F6;
+    border-right-color: #0E61F6;
+    border-bottom-color: #0E61F6;
+    border-top-color: #0E61F6;
+    color:#0E61F6;
+    object-fit: cover;
+    margin:auto;
+    display: block;
+    font-size: 14px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    box-sizing: border-box;
+    padding-right: 16px;
+    padding-left: 16px;
+    font-weight: 600;
+}
+.text{
+    padding-bottom: 11px;
+    padding-top: 11px;
+    line-height: 21px;
+    border-radius: 8px;
+    color:rgb(118, 118, 118);
+    object-fit: cover;
+    margin:auto;
+    display: block;
+    font-size: 16px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    box-sizing: border-box;
+    padding-right: 16px;
+    padding-left: 16px;
+    font-weight: 600;
+    font-family: inherit;
+    outline-width: 0;
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-top-width: 1px;
 }

@@ -30,6 +30,7 @@ const matchLabelsWithString=(text,string)=>{
 
 const highlightNodes=(object,documentNodes)=>{
     const name=Object.keys(object)[0];
+    //const name=nameOfFile.replace(/[^a-zA-Z0-9 ]/g, '');
     const i18nStrings=object[name];
     if(i18nStrings===null) return;
     
@@ -40,6 +41,7 @@ const highlightNodes=(object,documentNodes)=>{
             {
                 const newElement=document.createElement("mark");
                 newElement.classList.add(name);
+                newElement.setAttribute("id","highlight");
                 newElement.innerHTML=text;
                 const parent=item.parentNode;
                 if(parent.contains(item)) parent.replaceChild(newElement,item);

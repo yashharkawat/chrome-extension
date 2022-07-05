@@ -4,18 +4,24 @@
     <link rel="stylesheet", href="button.css">
 </head>
 <body>
-    <h1>Namespace label Highlighter</h1>
-    <form>
-        <label>Select File Type</label><br>
-        <input  type="radio" id="js" name="fileType" value=".js">
-        <label for="js">.js</label>
-        <input  type="radio" id="json" name="fileType" value=".json">
-        <label for="json">.json</label><br><br>
-        <label>Add custom regex string</label><br>
-        <input type="text" class="text" id="text" size=40></input>
-        <input type="Submit" value="Submit" id="Submit" >
-    </form><br>
-    <button id="buttonElement" class="buttonElement">Highlight</button>
+    <h2>Namespace label Highlighter</h2>
+    <div id="center">
+        <form>
+            <label>Select File Type</label><br>
+            <input  type="radio" id="js" name="fileType" value=".js">
+            <label for="js">.js</label>
+            <input  type="radio" id="json" name="fileType" value=".json">
+            <label for="json">.json</label><br><br>
+            <label>Add string</label><br>
+            <input type="text" class="text" id="text" size=40 name placeholder="Enter custom regex here"></input>
+        </form><br>
+        <div class="buttons">
+            <button id="refresh" class="refresh">Refresh </button>
+            <button id="buttonElement" class="buttonElement">Highlight</button>
+        </div>
+    </div>
+    
+    
     <script src="popup.js"></script>
 </body>
 </html>
