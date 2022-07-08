@@ -4,14 +4,16 @@ tooltipEl.position = 'absolute';
 document.body.appendChild(tooltipEl);
 
 const renderTooltip = (mouseX, mouseY, selection) => {
-    const tooltipEl = document.getElementById('i18n-detector-tooltip');
+  const tooltipEl = document.getElementById('i18n-detector-tooltip');
   tooltipEl.innerHTML = selection;
   tooltipEl.style.position = 'absolute';
   tooltipEl.style.visibility = 'visible';
-  
+  tooltipEl.style.fontSize= 16+'px';
   tooltipEl.style.top = mouseY + 'px';
   tooltipEl.style.left = mouseX + 'px';
   tooltipEl.style.backgroundColor = 'white';
+  tooltipEl.style.border="2px solid black";
+  tooltipEl.style.padding='5px';
 }
 const getRandomHexValue=()=> {
     const letters = '0123456789ABCDEF'.split('');
@@ -21,10 +23,14 @@ const getRandomHexValue=()=> {
     }
     return color;
 }
+
+//if string is -->  my name is {{name}}. I am {{age}} years old.
+//regex ---------> ^my name is \w*\. I am \w* years old\.$  
+//if string is --> my name is {{name}}. I am {{age}} (years) (old).
+//regex is ------> ^my name is \w*\. I am \w* \(years\) \(old\)\.$
 const getTargetStringRegex=(string)=>{
 
-    let transformedString=string.replace('.',"\\.").replace('(',"\\(").replace(')',"\\)");
-    
+    let transformedString=string.replace(/\./g,"\\.").replace(/\(/g,"\\(").replace(/\)/g,"\\)");
     const regex=/{{([^}]+)}}/g;
     let regexString="";
     if(transformedString[0]!=='{') regexString+='^';
@@ -33,7 +39,6 @@ const getTargetStringRegex=(string)=>{
     
     return regexString;
 }
-
 const matchLabelsWithString=(text,string)=>{
     if(text===string) return true;
     const regexString=getTargetStringRegex(string);
@@ -73,18 +78,19 @@ const highlightNodes=(object,documentNodes)=>{
     })
     
 }
-const dfs = (node,documentNodes) => {
-    if(node===null) return;
-    if(node.nodeName==='STYLE') return;
-    if(node.nodeName==='MARK') return;
+const dfs = (node) => {
+    if(node===null) return [];
+    if(node.nodeName==='STYLE') return [];
+    if(node.nodeName==='MARK') return [];  //remove this line if you want to see all the files 
+    var documentNodes=[];
     if(node.nodeType===Node.TEXT_NODE) documentNodes.push(node); 
     node.childNodes.forEach((item) => {
-        dfs(item,documentNodes);
+        documentNodes=[...documentNodes,...dfs(item)];
     });
     return documentNodes;
   };
 chrome.runtime.onMessage.addListener((message) => {
-    const documentNodes=dfs(document.body,[]);
+    const documentNodes=dfs(document.body);
     highlightNodes(message,documentNodes); 
     document.querySelectorAll(".highlight").forEach((temp1)=>{
         temp1.addEventListener('mouseover', event => {
